@@ -88,8 +88,8 @@ public class EBiddingResource {
     }
 
     @GET
-    @Path("login/{userName}")
-    public String login(@PathParam("userName") String userName){
+    @Path("login/{userName}/{password}")
+    public String login(@PathParam("userName") String userName,@PathParam("password") String password){
         return userService.login(userName, "password");
     }
 }
