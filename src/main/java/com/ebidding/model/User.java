@@ -9,6 +9,15 @@ public class User extends PanacheMongoEntity {
     String companyId;
     String password;
     String email;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public static User valueOf(String string)
     {

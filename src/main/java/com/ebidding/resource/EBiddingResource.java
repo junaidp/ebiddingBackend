@@ -3,11 +3,9 @@ package com.ebidding.resource;
 import com.ebidding.model.*;
 import com.ebidding.repository.CompanyRepository;
 import com.ebidding.repository.ContractorRepository;
-import com.ebidding.service.BidService;
-import com.ebidding.service.CompanyService;
-import com.ebidding.service.ProjectService;
-import com.ebidding.service.UserService;
+import com.ebidding.service.*;
 import com.google.gson.Gson;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -29,6 +27,9 @@ public class EBiddingResource {
     CompanyService companyService;
     @Inject
     UserService userService;
+    @Inject
+    CommonService commonService;
+
     Gson gson = new Gson();
 
     @GET
@@ -37,9 +38,9 @@ public class EBiddingResource {
         return "Hello RESTEasy";
     }
 
-    @GET
+    @POST
     @Path("/saveProject")
-    public String saveProject(@QueryParam("project") Project project) {
+    public String saveProject(@RequestBody Project project) {
         return projectService.saveProject(project);
     }
 
@@ -56,34 +57,36 @@ public class EBiddingResource {
         return gson.toJson(companies) ;
     }
 
-    @GET
+    @POST
     @Path("/saveContractor")
-    public String saveContractor(@QueryParam("contractor") Contractor contractor)    {
+    public String saveContractor(@RequestBody Contractor contractor)    {
+        System.out.println(contractor);
         contractorRepository.persist(contractor);
         return "contractor saved";
     }
 
     @POST
     @Path("/saveBid")
-    public String saveBid(@QueryParam("Bid") Bid bid){
+    public String saveBid(@RequestBody Bid bid){
          return bidService.saveBid(bid);
     }
 
     @GET
     @Path("/getBids/{companyId}")
     public String getBids(@PathParam("companyId") String companyId){
+
         return bidService.getBids(companyId);
     }
 
     @POST
     @Path("/saveCompany")
-    public String saveCompany(@QueryParam("company") Company company) {
-        return companyService.saveCompany(company);
+    public String saveCompany(@RequestBody CompanyDTO companyDto) {
+        return commonService.saveCompanyandItsAdmin(companyDto);
     }
 
-    @GET
+    @POST
     @Path("/saveUser")
-    public String saveUser( @QueryParam("user") User user){
+    public String saveUser( @RequestBody User user){
         return userService.saveUser(user);
     }
 

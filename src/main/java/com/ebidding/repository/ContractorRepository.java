@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.PanacheMongoRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class ContractorRepository implements PanacheMongoRepository<Contractor> {
@@ -18,6 +19,7 @@ public class ContractorRepository implements PanacheMongoRepository<Contractor> 
 
     @Override
     public void persist(Contractor contractor) {
+        contractor.setContractorId(UUID.randomUUID().toString());
         contractor.persist();
     }
 }

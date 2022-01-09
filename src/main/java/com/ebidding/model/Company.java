@@ -5,13 +5,22 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
 public class Company extends PanacheMongoEntity {
 
-    String name;
-    String address ;
+    private String companyId;
+    private String name;
+    private String address ;
 
     public static Company valueOf(String string)
     {
         Gson gson = new Gson();
         return gson.fromJson(string, Company.class);
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {

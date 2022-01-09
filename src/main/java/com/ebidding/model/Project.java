@@ -1,15 +1,15 @@
 package com.ebidding.model;
 
-import com.google.gson.Gson;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import io.quarkus.mongodb.panache.common.MongoEntity;
 
+@MongoEntity
 public class Project extends PanacheMongoEntity {
 
-   // @Id
-   // @GeneratedValue private Long id;
-    String name;
-    String description;
-    String companyId;
+    private String projectId;
+    private String name;
+    private String description;
+    private String companyId;
 
     public String getCompanyId() {
         return companyId;
@@ -17,12 +17,6 @@ public class Project extends PanacheMongoEntity {
 
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
-    }
-
-    public static Project valueOf(String string)
-    {
-        Gson gson = new Gson();
-        return gson.fromJson(string, Project.class);
     }
 
     public String getDescription() {
@@ -40,4 +34,15 @@ public class Project extends PanacheMongoEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+
+
 }

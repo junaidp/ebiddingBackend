@@ -2,12 +2,23 @@ package com.ebidding.model;
 
 import com.google.gson.Gson;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import org.bson.types.ObjectId;
 
 public class Contractor extends PanacheMongoEntity {
 
+    private String contractorId;
     String name;
     String description;
     String email;
+
+    public String getContractorId() {
+        return contractorId;
+    }
+
+    public void setContractorId(String contractorId) {
+        this.contractorId = contractorId;
+    }
+
     String companyId;
 
     public String getCompanyId() {

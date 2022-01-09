@@ -1,12 +1,14 @@
 package com.ebidding.service;
 
 import com.ebidding.model.Bid;
+import com.ebidding.model.ErrorInfo;
 import com.ebidding.repository.BidRepository;
 import com.google.gson.Gson;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class BidService {
@@ -16,15 +18,21 @@ public class BidService {
     Gson gson = new Gson();
 
     public String saveBid(Bid bid) {
-        String response ;
+        ErrorInfo response = new ErrorInfo();
         try {
+            bid.setBidId(UUID.randomUUID().toString());
             bid.persist();
-            response = gson.toJson("Bid Saved");
+            response.setSuccess(true);
+            response.setMessage("Bid Saved");
+            return gson.toJson(response);
         }
         catch(Exception ex){
-            response = gson.toJson("Bid did not saved: "+ ex.getMessage());
+            response.setSuccess(false);
+            response.setMessage("Bid did not saved: "+ ex.getMessage());
+            return gson.toJson(response);
+
         }
-        return response;
+
     }
 
     public String getBids(String companyId){

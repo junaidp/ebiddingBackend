@@ -1,8 +1,10 @@
 package com.ebidding.service;
 
+import com.ebidding.model.ErrorInfo;
 import com.ebidding.model.User;
 import com.google.gson.Gson;
 import javax.enterprise.context.ApplicationScoped;
+import java.util.UUID;
 
 @ApplicationScoped
 public class UserService {
@@ -11,10 +13,14 @@ public class UserService {
 
     public String saveUser(User user){
         try {
+            user.setUserId(UUID.randomUUID().toString());
             user.persist();
-            return gson.toJson("user saved");
+            ErrorInfo errorInfo = new ErrorInfo(true, "user saved");
+            return gson.toJson(errorInfo);
+
         }catch(Exception ex){
-            return gson.toJson("Error in saving user:" + ex);
+            ErrorInfo errorInfo = new ErrorInfo(false, "Error in saving user:" + ex);
+            return gson.toJson(errorInfo);
         }
     }
 

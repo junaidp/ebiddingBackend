@@ -5,15 +5,28 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
 public class Bid extends PanacheMongoEntity {
 
-    public String name;
-    public String date;
-    public String companyId;
+    private String bidId;
 
+    public String getBidId() {
+        return bidId;
+    }
 
-    public static Bid valueOf(String string)
-    {
-        Gson gson = new Gson();
-        return gson.fromJson(string, Bid.class);
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
+    }
+
+    private String name;
+    private String date;
+    private String companyId;
+    private String contractorId;
+    private String projectId;
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getName() {
@@ -39,4 +52,20 @@ public class Bid extends PanacheMongoEntity {
     public void setCompanyId(String companyId) {
         this.companyId = companyId;
     }
+
+    public String getContractorId() {
+        return contractorId;
+    }
+
+    public void setContractorId(String contractorId) {
+        this.contractorId = contractorId;
+    }
+
+    public static Bid valueOf(String string)
+    {
+        Gson gson = new Gson();
+        return gson.fromJson(string, Bid.class);
+    }
+
+
 }
