@@ -1,10 +1,7 @@
 package com.ebidding.service;
 
 import com.ebidding.dto.Role;
-import com.ebidding.model.Bid;
-import com.ebidding.model.Company;
-import com.ebidding.model.ErrorInfo;
-import com.ebidding.model.User;
+import com.ebidding.model.*;
 import com.ebidding.repository.BidRepository;
 import com.google.gson.Gson;
 
@@ -53,4 +50,25 @@ public class BidService {
         return gson.toJson(bids);
     }
 
+    public String saveBidding(Bidding bidding){
+        try{
+            bidding.persist();
+            ErrorInfo response = new ErrorInfo(true, "bidding saved");
+            return gson.toJson(response);
+        }catch(Exception ex){
+            ErrorInfo response = new ErrorInfo(false, "bidding could not saved" + ex);
+            return gson.toJson(response);
+        }
+
+    }
+
+    public String getBiddings(String bidId) {
+        try{
+            List<Bidding> biddings = Bidding.find("bidId", bidId ).list();
+            return gson.toJson(biddings);
+        }catch(Exception ex){
+            ErrorInfo response = new ErrorInfo(false, "failed to fetch biddings" + ex);
+            return gson.toJson(response);
+        }
+    }
 }

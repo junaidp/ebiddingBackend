@@ -4,6 +4,7 @@ import com.ebidding.model.Company;
 import com.ebidding.model.Contractor;
 import com.ebidding.model.Project;
 import com.ebidding.model.User;
+import com.ebidding.util.Utility;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -56,6 +57,11 @@ public class GreetingResourceTest {
     public void saveCompany(){
         Company company = new Company();
         company.setName("Test Company");
+    }
+    @Test
+    public void sendEmail(){
+        Utility utility = new Utility();
+        utility.sendEmail("junaidp@gmail.com", "test","test body");
     }
 
 }

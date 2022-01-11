@@ -95,4 +95,16 @@ public class EBiddingResource {
     public String login(@PathParam("userName") String userName,@PathParam("password") String password){
         return userService.login(userName, "password");
     }
+
+    @POST
+    @Path("/saveBidding")
+    public String saveBidding(@RequestBody Bidding bidding){
+        return bidService.saveBidding(bidding);
+    }
+
+    @GET
+    @Path("getBiddings/{bidId}")
+    public String getBiddings(@PathParam("bidId") String bidId){
+        return bidService.getBiddings(bidId);
+    }
 }
