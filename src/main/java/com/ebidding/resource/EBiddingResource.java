@@ -4,12 +4,18 @@ import com.ebidding.dto.CompanyDTO;
 import com.ebidding.model.*;
 import com.ebidding.repository.ContractorRepository;
 import com.ebidding.service.*;
+import com.ebidding.util.Utility;
 import com.google.gson.Gson;
+import io.quarkus.mailer.Mail;
+import io.quarkus.mailer.Mailer;
+import io.smallrye.common.annotation.Blocking;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.jboss.resteasy.annotations.Query;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/api")
@@ -29,6 +35,12 @@ public class EBiddingResource {
     UserService userService;
     @Inject
     CommonService commonService;
+
+    @Inject
+    Mailer mailer ;
+
+    @Inject
+     Utility utility;
 
     Gson gson = new Gson();
 
@@ -78,6 +90,13 @@ public class EBiddingResource {
         return bidService.getBids(companyId);
     }
 
+    @GET
+    @Path("/getBid/{bidId}")
+    public String getBid(@PathParam("bidId") String bidId){
+
+        return bidService.getBid(bidId);
+    }
+
     @POST
     @Path("/saveCompany")
     public String saveCompany(@RequestBody CompanyDTO companyDto) {
@@ -91,9 +110,9 @@ public class EBiddingResource {
     }
 
     @GET
-    @Path("login/{userName}/{password}")
-    public String login(@PathParam("userName") String userName,@PathParam("password") String password){
-        return userService.login(userName, "password");
+    @Path("login")
+    public String login(@QueryParam("userName") String userName,@QueryParam("password") String password){
+        return userService.login(userName, password);
     }
 
     @POST
@@ -107,4 +126,26 @@ public class EBiddingResource {
     public String getBiddings(@PathParam("bidId") String bidId){
         return bidService.getBiddings(bidId);
     }
+
+    @GET
+    @Path("getBiddingResults")
+    public String getBiddingResults(@QueryParam("bidId") String bidId , @QueryParam("contractorId") String contractorId){
+
+        return bidService.getBiddingResults(bidId, contractorId);
+    }
+
+    @GET
+    @Path("sendEmail")
+    @Blocking
+    public String sendEmail() {
+
+
+        utility.sendEmail("junaidp@gmail.com", "Bidding", "https://ebidding.herokuapp.com/bidding/" + 1 + ":" + 2);
+        return "email sent";
+    }
+//       Mail mail = Mail.withText("junaidp@gmail.com","dd","dd");
+//        mailer.send(mail);
+//        return "mail sent";
+
+
 }

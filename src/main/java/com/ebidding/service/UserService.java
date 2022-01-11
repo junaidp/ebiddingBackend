@@ -4,6 +4,8 @@ import com.ebidding.model.ErrorInfo;
 import com.ebidding.model.User;
 import com.google.gson.Gson;
 import javax.enterprise.context.ApplicationScoped;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -25,7 +27,15 @@ public class UserService {
     }
 
     public String login(String email, String password) {
-        User user = User.find("email",email).singleResult();
-        return gson.toJson(user);
+       try {
+           Map<String, Object> params = new HashMap<>();
+           params.put("email", email);
+           params.put("password", password);
+           User user = User.find("email = :email and password = :password", params).firstResult();
+           return gson.toJson(user);
+       }catch(Exception ex){
+           ErrorInfo error = new ErrorInfo(true, "Error signingIn:" + ex);
+           return gson.toJson(error);
+       }
     }
 }

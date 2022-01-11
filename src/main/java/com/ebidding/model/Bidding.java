@@ -4,17 +4,17 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
 public class Bidding extends PanacheMongoEntity {
 
-    private String buddingId;
+    private String biddingId;
     private String bidId;
     private String contractorId;
     private String amount;
 
-    public String getBuddingId() {
-        return buddingId;
+    public String getBiddingId() {
+        return biddingId;
     }
 
-    public void setBuddingId(String buddingId) {
-        this.buddingId = buddingId;
+    public void setBiddingId(String buddingId) {
+        this.biddingId = buddingId;
     }
 
     public String getBidId() {

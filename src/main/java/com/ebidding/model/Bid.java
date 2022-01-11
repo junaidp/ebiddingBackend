@@ -3,9 +3,17 @@ package com.ebidding.model;
 import com.google.gson.Gson;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
+import java.util.List;
+
 public class Bid extends PanacheMongoEntity {
 
     private String bidId;
+
+      private String name;
+    private String date;
+    private String companyId;
+    private List<String> contractorId;
+    private String projectId;
 
     public String getBidId() {
         return bidId;
@@ -14,12 +22,6 @@ public class Bid extends PanacheMongoEntity {
     public void setBidId(String bidId) {
         this.bidId = bidId;
     }
-
-    private String name;
-    private String date;
-    private String companyId;
-    private String contractorId;
-    private String projectId;
 
     public String getProjectId() {
         return projectId;
@@ -53,11 +55,11 @@ public class Bid extends PanacheMongoEntity {
         this.companyId = companyId;
     }
 
-    public String getContractorId() {
+    public List<String> getContractorId() {
         return contractorId;
     }
 
-    public void setContractorId(String contractorId) {
+    public void setContractorId(List<String> contractorId) {
         this.contractorId = contractorId;
     }
 
