@@ -1,7 +1,7 @@
 package com.ebidding.resource;
 
+import com.ebidding.dto.CompanyDTO;
 import com.ebidding.model.*;
-import com.ebidding.repository.CompanyRepository;
 import com.ebidding.repository.ContractorRepository;
 import com.ebidding.service.*;
 import com.google.gson.Gson;

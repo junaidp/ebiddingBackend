@@ -1,7 +1,10 @@
 package com.ebidding.service;
 
+import com.ebidding.dto.Role;
 import com.ebidding.model.Bid;
+import com.ebidding.model.Company;
 import com.ebidding.model.ErrorInfo;
+import com.ebidding.model.User;
 import com.ebidding.repository.BidRepository;
 import com.google.gson.Gson;
 
@@ -15,6 +18,7 @@ public class BidService {
 
     @Inject
     BidRepository bidRepository;
+
     Gson gson = new Gson();
 
     public String saveBid(Bid bid) {
@@ -22,6 +26,12 @@ public class BidService {
         try {
             bid.setBidId(UUID.randomUUID().toString());
             bid.persist();
+            List<User> users =  User.find("companyId", bid.getCompanyId()).list();
+            for(User user : users){
+             if(user.getRole() == Role.ADMIN)
+                sendEmail(user.getEmail());
+            }
+          
             response.setSuccess(true);
             response.setMessage("Bid Saved");
             return gson.toJson(response);
@@ -33,6 +43,9 @@ public class BidService {
 
         }
 
+    }
+
+    private void sendEmail(String email) {
     }
 
     public String getBids(String companyId){

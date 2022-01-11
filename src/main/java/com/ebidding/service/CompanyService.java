@@ -1,10 +1,7 @@
 package com.ebidding.service;
 
 import com.ebidding.model.Company;
-import com.ebidding.model.CompanyDTO;
-import com.ebidding.model.ErrorInfo;
 import com.google.gson.Gson;
-import io.smallrye.mutiny.Uni;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;

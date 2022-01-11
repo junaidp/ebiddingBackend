@@ -1,4 +1,7 @@
-package com.ebidding.model;
+package com.ebidding.dto;
+
+import com.ebidding.model.Company;
+import com.ebidding.model.User;
 
 import java.io.Serializable;
 

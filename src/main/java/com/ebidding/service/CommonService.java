@@ -1,7 +1,7 @@
 package com.ebidding.service;
 
-import com.ebidding.model.Company;
-import com.ebidding.model.CompanyDTO;
+import com.ebidding.dto.CompanyDTO;
+import com.ebidding.dto.Role;
 import com.ebidding.model.ErrorInfo;
 import com.ebidding.model.User;
 import com.google.gson.Gson;
@@ -22,6 +22,7 @@ public class CommonService {
 
         String companyId = companyService.saveCompany(companyDto.getCompany());
         User admin = companyDto.getAdmin();
+        admin.setRole(Role.ADMIN);
         admin.setCompanyId(companyId);
         userService.saveUser(admin);
         ErrorInfo errorInfo = new ErrorInfo(true, "company saved");

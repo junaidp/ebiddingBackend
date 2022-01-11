@@ -1,5 +1,6 @@
 package com.ebidding.model;
 
+import com.ebidding.dto.Role;
 import com.google.gson.Gson;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 
@@ -9,7 +10,16 @@ public class User extends PanacheMongoEntity {
     String companyId;
     String password;
     String email;
+    private Role role;
     private String userId;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public String getUserId() {
         return userId;
